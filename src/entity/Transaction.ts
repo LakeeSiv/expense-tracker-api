@@ -19,4 +19,8 @@ export class Transaction extends BaseEntity {
   @Field()
   @Column()
   date: Date;
+
+  @Field()
+  @Column()
+  userHash: string;
 }
