@@ -3,10 +3,12 @@ import { createConnection, getConnectionOptions } from "typeorm";
 import express from "express";
 import { ApolloServer } from "apollo-server-express";
 import { buildSchema } from "type-graphql";
+import { OAuth2Client } from "google-auth-library";
 import Resolvers from "./resolvers";
 
 (async () => {
   const app = express();
+  const googleClient = new OAuth2Client(process.env.GOOGLE_CLIENT_ID);
 
   const options = await getConnectionOptions(
     process.env.NODE_ENV || "development"
