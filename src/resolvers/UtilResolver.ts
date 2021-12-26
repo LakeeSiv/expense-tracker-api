@@ -1,4 +1,4 @@
-import { hash } from "../utils/hash";
+import { hash } from "../utils/Hash";
 import { Arg, Query, Resolver } from "type-graphql";
 
 @Resolver()
