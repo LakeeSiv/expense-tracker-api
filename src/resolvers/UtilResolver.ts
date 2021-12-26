@@ -1,4 +1,4 @@
-import { Arg, Float, Mutation, Query, Resolver } from "type-graphql";
+import { Arg, Query, Resolver } from "type-graphql";
 
 @Resolver()
 export class UtilResolver {
