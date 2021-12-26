@@ -17,7 +17,7 @@ module.exports = [
   {
     name: "dev-pg",
     type: "postgres",
-    url: process.env.DATABASE_URL,
+    url: process.env.DEV_DATABASE_URL,
     synchronize: true,
     logging: true,
     entities: ["src/entity/**/*.ts"],
