@@ -6,8 +6,6 @@ export const googleAuth = async (client: OAuth2Client, token: string) => {
     audience: process.env.GOOGLE_CLIENT_ID,
   });
   const payload = ticket.getPayload();
-  const email = payload?.email;
-  const name = payload?.name;
 
-  return email && name ? { email, name } : undefined;
+  return payload ? payload : undefined;
 };
