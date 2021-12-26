@@ -1,6 +1,7 @@
 import { hash } from "../utils/Hash";
 import { googleAuth } from "../utils/Auth";
-import { Arg, Query, Resolver } from "type-graphql";
+import { Arg, Ctx, Query, Resolver } from "type-graphql";
+import { MyContext } from "src/types";
 
 @Resolver()
 export class UtilResolver {
@@ -9,7 +10,12 @@ export class UtilResolver {
     return hash(input);
   }
   @Query(() => String)
-  testAuth(@Arg("input", () => String) input: string) {
+  async testAuth(
+    @Arg("input", () => String) input: string,
+    @Ctx() ctx: MyContext
+  ) {
+    const auth = await googleAuth(ctx.googleClient, input);
+    console.log(auth);
     return hash(input);
   }
 }
