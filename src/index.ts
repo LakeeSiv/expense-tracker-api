@@ -20,7 +20,7 @@ import Resolvers from "./resolvers";
       resolvers: Resolvers,
       validate: true,
     }),
-    context: ({ req, res }) => ({ req, res }),
+    context: ({ req, res }) => ({ req, res, googleClient }),
   });
 
   apolloServer.applyMiddleware({ app, cors: false });
