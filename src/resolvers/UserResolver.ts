@@ -1,7 +1,4 @@
-import { hash } from "../utils/Hash";
-import { googleAuth } from "../utils/Auth";
-import { Arg, Ctx, Mutation, Query, Resolver } from "type-graphql";
-import { MyContext } from "src/types";
+import { Arg, Mutation, Resolver } from "type-graphql";
 import { User } from "../entity/User";
 
 @Resolver()
@@ -15,7 +12,43 @@ export class UserResolver {
       userHash,
       categories,
     }).save();
-    console.log(user);
+
     return user;
+  }
+  @Mutation(() => Boolean)
+  async addCategory(
+    @Arg("userHash", () => String) userHash: string,
+    @Arg("category", () => String) category: string
+  ) {
+    let user = await User.findOne({
+      where: {
+        userHash,
+      },
+    });
+    if (!user) {
+      return false;
+    }
+    user.categories = [...user.categories, category];
+    await User.save(user);
+
+    return true;
+  }
+  @Mutation(() => Boolean)
+  async removeCategory(
+    @Arg("userHash", () => String) userHash: string,
+    @Arg("category", () => String) category: string
+  ) {
+    let user = await User.findOne({
+      where: {
+        userHash,
+      },
+    });
+    if (!user) {
+      return false;
+    }
+    user.categories = user.categories.filter((cat) => cat !== category);
+    await User.save(user);
+
+    return true;
   }
 }
