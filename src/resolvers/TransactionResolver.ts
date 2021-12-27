@@ -1,4 +1,4 @@
-import { Arg, Float, Mutation, Query, Resolver } from "type-graphql";
+import { Arg, Float, ID, Mutation, Query, Resolver } from "type-graphql";
 import { Transaction } from "../entity/Transaction";
 
 @Resolver()
@@ -32,5 +32,30 @@ export class TransactionResolver {
       userHash,
     }).save();
     return transaction;
+  }
+  @Mutation(() => Boolean)
+  async editTransaction(
+    @Arg("id", () => ID) id: number,
+    @Arg("name", () => String, { nullable: true }) name: string,
+    @Arg("price", () => Float, { nullable: true }) price: number,
+    @Arg("category", () => String, { nullable: true }) category: string,
+    @Arg("date", () => Date, { nullable: true }) date: Date
+  ) {
+    const transaction = await Transaction.findOne({ id });
+    if (!transaction) {
+      return false;
+    }
+    transaction.name = name ? name : transaction.name;
+    transaction.price = price ? price : transaction.price;
+    transaction.category = category ? category : transaction.category;
+    transaction.date = date ? date : transaction.date;
+
+    Transaction.save(transaction);
+    return true;
+  }
+  @Mutation(() => Boolean)
+  async deleteTransaction(@Arg("id", () => ID) id: number) {
+    Transaction.delete({ id });
+    return true;
   }
 }
