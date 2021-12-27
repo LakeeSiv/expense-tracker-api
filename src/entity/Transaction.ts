@@ -21,7 +21,7 @@ export class Transaction extends BaseEntity {
   category: string;
 
   @Field()
-  @Column("int")
+  @Column("timestamp")
   date: Date;
 
   @Field()

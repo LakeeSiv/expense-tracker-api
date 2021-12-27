@@ -17,6 +17,7 @@ import Resolvers from "./resolvers";
     schema: await buildSchema({
       resolvers: Resolvers,
       validate: true,
+      dateScalarMode: "isoDate",
     }),
     context: ({ req, res }) => ({ req, res, googleClient }),
   });
