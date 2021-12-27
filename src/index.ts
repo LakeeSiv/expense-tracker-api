@@ -10,9 +10,7 @@ import Resolvers from "./resolvers";
   const app = express();
   const googleClient = new OAuth2Client(process.env.GOOGLE_CLIENT_ID);
 
-  const options = await getConnectionOptions(
-    process.env.NODE_ENV || "development"
-  );
+  const options = await getConnectionOptions("dev-pg");
   await createConnection({ ...options, name: "default" });
 
   const apolloServer = new ApolloServer({
