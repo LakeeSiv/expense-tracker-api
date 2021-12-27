@@ -4,8 +4,12 @@ import { BaseEntity, Column, Entity, PrimaryGeneratedColumn } from "typeorm";
 @ObjectType()
 @Entity()
 export class User extends BaseEntity {
-  @Field()
+  @Field(() => ID)
   @PrimaryGeneratedColumn()
+  id: number;
+
+  @Field()
+  @Column()
   userHash: string;
 
   @Field(() => [String])
