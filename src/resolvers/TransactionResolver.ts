@@ -19,6 +19,7 @@ export class TransactionResolver {
   async createTransaction(
     @Arg("name", () => String) name: string,
     @Arg("price", () => Float) price: number,
+    @Arg("category", () => String) category: string,
     @Arg("date", () => Date) date: Date,
     @Arg("userHash", () => String) userHash: string
   ) {
@@ -26,6 +27,7 @@ export class TransactionResolver {
     const transaction = await Transaction.create({
       name,
       price,
+      category,
       date,
       userHash,
     }).save();

@@ -18,6 +18,10 @@ export class Transaction extends BaseEntity {
 
   @Field()
   @Column()
+  category: string;
+
+  @Field()
+  @Column("int")
   date: Date;
 
   @Field()
